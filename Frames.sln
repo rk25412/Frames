@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frames.Web", "Frames.Web\Frames.Web.csproj", "{98ADB5E0-3EC2-4472-9F86-21843240A7C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frames.Entities", "Frames.Entities\Frames.Entities.csproj", "{C7704FFF-8CA6-4D88-9FBB-E986EF36C0C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98ADB5E0-3EC2-4472-9F86-21843240A7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98ADB5E0-3EC2-4472-9F86-21843240A7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98ADB5E0-3EC2-4472-9F86-21843240A7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98ADB5E0-3EC2-4472-9F86-21843240A7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7704FFF-8CA6-4D88-9FBB-E986EF36C0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7704FFF-8CA6-4D88-9FBB-E986EF36C0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7704FFF-8CA6-4D88-9FBB-E986EF36C0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7704FFF-8CA6-4D88-9FBB-E986EF36C0C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD5DC0A9-716A-4790-83C5-B3F9B20E6A5D}
+	EndGlobalSection
+EndGlobal
