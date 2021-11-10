@@ -71,7 +71,7 @@
         DataTable Example
     </div>
     <div class="card-body">
-        <table id="datatablesSimple">
+        <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -82,16 +82,6 @@
                     <th>Salary</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-            </tfoot>
             <tbody>
                 <tr>
                     <td>Tiger Nixon</td>
@@ -280,7 +270,7 @@
                 <tr>
                     <td>Doris Wilder</td>
                     <td>Sales Assistant</td>
-                    <td>Sidney</td>
+                    <td>Sydney</td>
                     <td>23</td>
                     <td>2010/09/20</td>
                     <td>$85,600</td>
@@ -336,7 +326,7 @@
                 <tr>
                     <td>Michelle House</td>
                     <td>Integration Specialist</td>
-                    <td>Sidney</td>
+                    <td>Sydney</td>
                     <td>37</td>
                     <td>2011/06/02</td>
                     <td>$95,400</td>
@@ -550,6 +540,26 @@
                     <td>$112,000</td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
+
+@section Scripts
+{
+<script>
+
+    $(function() {
+        $("#example").DataTable();
+    })
+</script>
+}

@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-// using Frames.Web.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Frames.Web.Controllers;
