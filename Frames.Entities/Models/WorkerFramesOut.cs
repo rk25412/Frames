@@ -9,7 +9,7 @@ public class WorkerFramesOut
 
     public int WorkerId { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Schema.ForeignKey("WorkerId")]
+    [ForeignKey("WorkerId")]
     public Worker Worker { get; set; }
 
     public ICollection<WorkerFramesOutNumber> WorkerFramesOutNumbers { get; set; }

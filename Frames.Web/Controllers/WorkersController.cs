@@ -20,22 +20,7 @@ public class WorkersController : Controller
     {
         try
         {
-            var draw = Request.Form["draw"].FirstOrDefault();
-
-            // Skiping number of Rows count  
-            var start = Request.Form["start"].FirstOrDefault();
-
-            // Paging Length 10,20  
-            var length = Request.Form["length"].FirstOrDefault();
-
-            // Sort Column Name  
-            var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-
-            // Sort Column Direction (asc ,desc)  
-            var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-
-            // Search Value from (Search box)  
-            var searchValue = Request.Form["search[value]"].FirstOrDefault();
+            (string draw, string start, string length, string sortColumn, string sortColumnDirection, string searchValue) = ExtractTableData();
 
             Query query = new();
 
@@ -69,7 +54,7 @@ public class WorkersController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> IsEmployeeNameTaken(string name)
+    public async Task<IActionResult> IsWorkersNameTaken(string name)
     {
         if (string.IsNullOrEmpty(name))
             return BadRequest("Name cannot be empty");
@@ -87,7 +72,7 @@ public class WorkersController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateOrUpdateEmployee([FromBody] CreateWorkerDto workerDto)
+    public async Task<IActionResult> CreateOrUpdateWorker([FromBody] CreateWorkerDto workerDto)
     {
         try
         {
@@ -119,5 +104,62 @@ public class WorkersController : Controller
             _logger.LogError(ex.ToString());
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetOneWorkerDetails(int workerId)
+    {
+        if (workerId <= 0)
+            return BadRequest("workerId is required");
+
+        try
+        {
+            var resoponse = await workerService.GetWorker(workerId);
+            return Ok(resoponse);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> DeleteWorker(int workerId)
+    {
+        if (workerId <= 0)
+            return BadRequest("workerId is required");
+
+        try
+        {
+            var deletedWorker = await workerService.DeleteWorker(workerId);
+            return Ok(true);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            return BadRequest(ex.Message);
+        }
+    }
+    private (string, string, string, string, string, string) ExtractTableData()
+    {
+        var draw = Request.Form["draw"].FirstOrDefault();
+
+        // Skiping number of Rows count  
+        var start = Request.Form["start"].FirstOrDefault();
+
+        // Paging Length 10,20  
+        var length = Request.Form["length"].FirstOrDefault();
+
+        // Sort Column Name  
+        var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+
+        // Sort Column Direction (asc ,desc)  
+        var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+
+        // Search Value from (Search box)  
+        var searchValue = Request.Form["search[value]"].FirstOrDefault();
+
+        return (draw, start, length, sortColumn, sortColumnDirection, searchValue);
     }
 }

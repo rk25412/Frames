@@ -7,7 +7,7 @@ public class AdminBillFrameType
 
     public string FrameName { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Precision(10, 2)]
     public decimal FrameRate { get; set; }
 
     public int AdminBillId { get; set; }

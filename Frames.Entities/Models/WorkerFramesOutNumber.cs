@@ -11,9 +11,9 @@ public class WorkerFramesOutNumber
 
     public int ItemTypeId { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Schema.ForeignKey("WorkerFramesOutId")]
+    [ForeignKey("WorkerFramesOutId")]
     public WorkerFramesOut WorkerFramesOut { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Schema.ForeignKey("ItemTypeId")]
+    [ForeignKey("ItemTypeId")]
     public ItemType ItemType { get; set; }
 }

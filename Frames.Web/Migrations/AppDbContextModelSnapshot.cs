@@ -34,15 +34,18 @@ namespace Frames.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("LastMonthBill")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("LastMonthLeft")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Year")
@@ -68,6 +71,7 @@ namespace Frames.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("FrameRate")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
@@ -147,6 +151,7 @@ namespace Frames.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("Date")
@@ -166,12 +171,14 @@ namespace Frames.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("AdminPrice")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("WorkerPrice")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
@@ -205,6 +212,7 @@ namespace Frames.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<bool>("Cleared")
@@ -235,6 +243,7 @@ namespace Frames.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("FrameRate")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("WorkerBillId")
@@ -327,6 +336,7 @@ namespace Frames.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("Date")

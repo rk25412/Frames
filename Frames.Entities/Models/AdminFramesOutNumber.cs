@@ -11,9 +11,9 @@ public class AdminFramesOutNumber
 
     public int AdminFramesOutId { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Schema.ForeignKey("ItemTypeId")]
+    [ForeignKey("ItemTypeId")]
     public ItemType ItemType { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Schema.ForeignKey("AdminFramesOutId")]
+    [ForeignKey("AdminFramesOutId")]
     public AdminFramesOut AdminFramesOut { get; set; }
 }

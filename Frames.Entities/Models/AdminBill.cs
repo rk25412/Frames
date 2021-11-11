@@ -11,13 +11,13 @@ public class AdminBill
     [Range(2020, 2025)]
     public int Year { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Precision(10,2)]
     public decimal Total { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Precision(10, 2)]
     public decimal LastMonthBill { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Precision(10, 2)]
     public decimal LastMonthLeft { get; set; }
 
     public DateTime CreationDate { get; set; }

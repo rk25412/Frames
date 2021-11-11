@@ -18,9 +18,9 @@ public class ItemType
 
     public string ItemName { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Precision(10, 2)]
     public decimal AdminPrice { get; set; }
 
-    [Column(TypeName = "decimal(10,2)")]
+    [Precision(10, 2)]
     public decimal WorkerPrice { get; set; }
 }
