@@ -1,7 +1,4 @@
-﻿using Frames.Entities.Models;
-using Frames.Web.Helpers;
-
-namespace Frames.Web.Contracts;
+﻿namespace Frames.Web.Contracts;
 
 public interface IWorkerService
 {
@@ -10,4 +7,6 @@ public interface IWorkerService
     Task<Worker> AddWorker(Worker worker);
     Task<Worker> UpdateWorker(Worker worker);
     Task<Worker> DeleteWorker(int workerId);
+    Task<int> GetTotalCount();
+    Task<bool> DoesWorkerExists(string name);
 }

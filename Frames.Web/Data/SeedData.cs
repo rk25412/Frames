@@ -7,19 +7,40 @@ public class SeedData
         AppDbContext context = app.ApplicationServices
             .CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
 
-        if (context.Database.GetPendingMigrations().Any())
-            context.Database.Migrate();
+        ILogger<SeedData> logger = app.ApplicationServices
+            .CreateScope().ServiceProvider.GetRequiredService<ILogger<SeedData>>();
 
-        if (!context.Workers.Any())
+        try
         {
-            context.Workers.AddRange(
-                new Worker { Name = "Logan" },
-                new Worker { Name = "Jean" },
-                new Worker { Name = "Scott" },
-                new Worker { Name = "Kitty" },
-                new Worker { Name = "Storm" }
-            );
+            if (context.Database.GetPendingMigrations().Any())
+                context.Database.Migrate();
 
+            if (!context.ItemTypes.Any())
+            {
+                context.ItemTypes.AddRange(
+                    new ItemType("Ilet", 17, 12.5m),
+                    new ItemType("Ring", 9, 7.5m),
+                    new ItemType("Miki", 13, 9)
+                );
+            }
+
+            if (!context.Workers.Any())
+            {
+                context.Workers.AddRange(
+                    new Worker("Logan"),
+                    new Worker("Jean"),
+                    new Worker("Scott"),
+                    new Worker("Kitty"),
+                    new Worker("Storm")
+                );
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.ToString());
+        }
+        finally
+        {
             context.SaveChanges();
         }
     }

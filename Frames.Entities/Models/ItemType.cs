@@ -1,10 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Frames.Entities.Models;
+﻿namespace Frames.Entities.Models;
 
 public class ItemType
 {
+    public ItemType()
+    {
+    }
+
+    public ItemType(string itemName, decimal adminPrice, decimal workerPrice)
+    {
+        ItemName = itemName;
+        AdminPrice = adminPrice;
+        WorkerPrice = workerPrice;
+    }
+
     [Key]
     public int Id { get; set; }
 

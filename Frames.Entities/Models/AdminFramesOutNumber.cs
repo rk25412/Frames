@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Frames.Entities.Models;
+﻿namespace Frames.Entities.Models;
 
 public class AdminFramesOutNumber
 {

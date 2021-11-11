@@ -1,15 +1,9 @@
-﻿using Frames.Entities;
-using Frames.Entities.Models;
-using Frames.Web.Contracts;
-using Frames.Web.Helpers;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Dynamic.Core;
-
-namespace Frames.Web.Services;
+﻿namespace Frames.Web.Services;
 
 public class WorkerService : IWorkerService
 {
     private readonly AppDbContext context;
+    
     public WorkerService(AppDbContext context)
     {
         this.context = context;
@@ -96,7 +90,7 @@ public class WorkerService : IWorkerService
 
         if (item is null)
             throw new Exception("Item no longer available");
-
+        
         var entry = context.Entry(item);
         entry.CurrentValues.SetValues(worker);
         entry.State = EntityState.Modified;
@@ -124,4 +118,8 @@ public class WorkerService : IWorkerService
 
         return item;
     }
+    public async Task<int> GetTotalCount() =>
+        await context.Workers.CountAsync();
+    public async Task<bool> DoesWorkerExists(string name) => 
+        await context.Workers.AnyAsync(x => x.Name.ToUpper() == name.ToUpper());
 }
