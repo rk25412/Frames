@@ -6,6 +6,7 @@ public class AdminBillFrameType
     public int Id { get; set; }
 
     public string FrameName { get; set; }
+    public int Total { get; set; }
 
     [Precision(10, 2)]
     public decimal FrameRate { get; set; }
