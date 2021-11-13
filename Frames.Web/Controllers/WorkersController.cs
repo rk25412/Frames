@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Frames.Web.Controllers;
+﻿namespace Frames.Web.Controllers;
 
 public class WorkersController : Controller
 {

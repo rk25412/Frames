@@ -16,6 +16,7 @@ builder.Services.Configure<JsonOptions>(opts =>
 
 // Add Services
 builder.Services.AddScoped<IWorkerService, WorkerService>();
+builder.Services.AddScoped<IAdminFrameService, AdminFrameService>();
 
 var app = builder.Build();
 
