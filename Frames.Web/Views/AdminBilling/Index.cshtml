@@ -1,20 +1,88 @@
-﻿@{
-    ViewData["Title"] = "Admin Frames In";
-}
+﻿@{ ViewData["Title"] = "Admin Frames In"; }
 
 <div class="d-flex justify-content-between mt-4">
-    <h2>Admin Frames In</h2>
-    <button type="button" id="openCreateWorkerModal" class="btn btn-primary">
-        Add
-    </button>
+  <h2>Admin Frames In</h2>
+  <div>
+    <button type="button" class="btn btn-primary">Add Old</button>
+    <button type="button" class="btn btn-primary">Add Today</button>
+  </div>
 </div>
 
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Admin Frames In</li>
+  <li class="breadcrumb-item active">Admin Frames In</li>
 </ol>
 
 <div class="card">
-    <div class="card-body">
-
+  <div class="card-header">
+    <div class="row row-cols-2">
+      <div class="col">
+        <select id="selected-month" class="form-select">
+          <option value="1">Jan</option>
+          <option value="2">Feb</option>
+          <option value="3">Mar</option>
+          <option value="4">Apr</option>
+          <option value="5">May</option>
+          <option value="6">Jun</option>
+          <option value="7">Jul</option>
+          <option value="8">Aug</option>
+          <option value="9">Sep</option>
+          <option value="10">Oct</option>
+          <option value="11">Nov</option>
+          <option value="12">Dec</option>
+        </select>
+      </div>
+      <div class="col">
+        <select id="selected-year" class="form-select">
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+        </select>
+      </div>
     </div>
+  </div>
+  <div class="card-body">
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Number Of Frames</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 </div>
+
+@section Scripts {
+<script>
+  const _$table = $("#dataTable");
+
+  (function () {
+    $("#selected-month").val(new Date().getMonth() + 1);
+    $("#selected-year").val(new Date().getFullYear());
+  })();
+
+  let _$datatable = _$table.DataTable({
+      processing: true,
+      serverSide: true,
+      filter: false,
+      orderMulti: false,
+      paging: false,
+      ajax: {
+          url: `/AdminBilling/GetData?month=${$("#selected-month").val()}&year=${$("#selected-year").val()}`,
+          type: 'post',
+          dataType: 'json'
+      },
+      columns: [
+          {
+              data: ''
+          }
+      ]
+  })
+
+
+  
+</script>
+}

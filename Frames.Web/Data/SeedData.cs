@@ -34,6 +34,25 @@ public class SeedData
                     new Worker("Storm")
                 );
             }
+
+            if (!context.AdminFramesIns.Any())
+            {
+                var rnd = new Random();
+                DateTime dateTime = DateTime.Today;
+
+                context.AdminFramesIns.AddRange(
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0)),
+                    new AdminFramesIn(rnd.Next(50, 100), new DateTime(dateTime.Year, dateTime.Month, rnd.Next(1, DateTime.Today.Day), rnd.Next(9, 17), rnd.Next(1, 59), 0))
+                );
+            }
         }
         catch (Exception ex)
         {
