@@ -18,7 +18,4 @@ public class AdminFramesIn
     public int NoOfFrames { get; set; }
 
     public DateTime Date { get; set; }
-
-    [NotMapped]
-    public DateOnly DateOnly => DateOnly.FromDateTime(Date);
 }

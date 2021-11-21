@@ -11,8 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.RegisterDbContext(builder.Configuration);
-builder.Services.Configure<JsonOptions>(opts =>
-    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
+builder.Services.Configure<JsonOptions>(opts => opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
 // Add Services
 builder.Services.AddScoped<IWorkerService, WorkerService>();
@@ -25,10 +24,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+    app.UseHttpsRedirection();
 }
 else
 {
-    app.UseHttpsRedirection();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseStaticFiles();

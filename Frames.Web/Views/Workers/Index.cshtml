@@ -1,240 +1,265 @@
-﻿@{
-    ViewData["Title"] = "Workers List";
-}
+﻿@{ ViewData["Title"] = "Workers List"; }
 
 <div class="d-flex justify-content-between align-items-center mt-4">
-    <h2>Workers</h2>
-    <button type="button" id="openCreateWorkerModal" class="btn btn-primary">
-        Add New Worker
-    </button>
+  <h2>Workers</h2>
+  <button type="button" id="openCreateWorkerModal" class="btn btn-primary">
+    Add New Worker
+  </button>
 </div>
 
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Workers</li>
+  <li class="breadcrumb-item active">Workers</li>
 </ol>
 
 <div class="card">
-    <div class="card-body">
-        <table id="datatable" style="width: 100%">
-            <thead>
-                <tr>
-                    <th style="width: 150px">Customer ID</th>
-                    <th>Name</th>
-                    <th style="width: 150px">Actions</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+  <div class="card-body">
+    <table id="datatable" style="width: 100%">
+      <thead>
+        <tr>
+          <th style="width: 150px">Customer ID</th>
+          <th>Name</th>
+          <th style="width: 150px">Actions</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 </div>
 
 @*Add New Worker Modal*@
-<div class="modal fade" id="addNewWorkerModal" tabindex="-1" aria-labelledby="addNewWorkerModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addNewWorkerModal">Add New Worker</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div
+  class="modal fade"
+  id="addNewWorkerModal"
+  tabindex="-1"
+  aria-labelledby="addNewWorkerModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNewWorkerModal">Add New Worker</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="row needs-validation">
+          <div class="col-12">
+            <input type="hidden" id="newWorkerId" />
+            <div class="has-validation">
+              <label for="newWorkerNameInput" class="form-label"
+                >Worker Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="newWorkerNameInput"
+                id="newWorkerNameInput"
+                required
+              />
+              <div
+                class="invalid-feedback"
+                id="newWorkerNameInvalidFeedback"
+              ></div>
             </div>
-            <div class="modal-body">
-                <form method="post" class="row needs-validation">
-                    <div class="col-12">
-                        <input type="hidden" id="newWorkerId" />
-                        <div class="has-validation">
-                            <label for="newWorkerNameInput" class="form-label">Worker Name</label>
-                            <input type="text" class="form-control" name="newWorkerNameInput" id="newWorkerNameInput"
-                                required />
-                            <div class="invalid-feedback" id="newWorkerNameInvalidFeedback"></div>
-                        </div>
 
-                        <div class="d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary save-button">Save changes</button>
-                        </div>
-                    </div>
-                </form>
+            <div class="d-flex justify-content-between mt-3">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary save-button">
+                Save changes
+              </button>
             </div>
-        </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
-
-@section Scripts
-{
+@section Scripts {
 <script>
-    let _$modal = $("#addNewWorkerModal"),
-        _$form = _$modal.find("form"),
-        _$table = $("#datatable"),
-        _$createButton = $("#openCreateWorkerModal"),
-        _$nameInput = $("#newWorkerNameInput"),
-        _$idInput = $("#newWorkerId"),
-        _$nameInputInvalidFeedback = $("#newWorkerNameInvalidFeedback");
+  let _$modal = $("#addNewWorkerModal"),
+    _$form = _$modal.find("form"),
+    _$table = $("#datatable"),
+    _$createButton = $("#openCreateWorkerModal"),
+    _$nameInput = $("#newWorkerNameInput"),
+    _$idInput = $("#newWorkerId"),
+    _$nameInputInvalidFeedback = $("#newWorkerNameInvalidFeedback");
 
-    let _$workerTable = _$table.DataTable({
-        processing: true, // for show progress bar
-        serverSide: true, // for process server side
-        filter: true, // this is for disable filter (search box)
-        orderMulti: false, // for disable multiple column at once
-        ajax: {
-            url: "/Workers/GetAllWorkers",
-            type: "post",
-            datatype: "json",
-        },
-        //"columnDefs": [{
-        //    "targets": [0],
-        //    "searchable": false,
-        //    "sortable": false
-        //}],
-        columns: [
-            {
-                data: "id",
-                name: "ID",
-                autoWidth: true,
-                defaultContent: "",
-                searchable: false,
-                sortable: false,
-            },
-            {
-                data: "name",
-                name: "Name",
-                autoWidth: true,
-                defaultContent: "",
-            },
-            {
-                sortable: false,
-                searchable: false,
-                autoWidth: false,
-                defaultContent: "",
-                render: (data, type, row, meta) =>
-                    `<button type="button" class="btn btn-sm btn-secondary edit-worker" data-worker-id="${row.id}">
-                        <i class="fas fa-pencil-alt"></i> Edit
-                     </button>
-                     <button type="button" class="btn btn-sm btn-danger delete-worker" data-worker-id="${row.id}" data-worker-name="${row.name}">
-                        <i class="fas fa-trash"></i> Delete
-                     </button>`,
-            },
-        ],
-    });
+  let _$workerTable = _$table.DataTable({
+    processing: true, // for show progress bar
+    serverSide: true, // for process server side
+    filter: true, // this is for disable filter (search box)
+    orderMulti: false, // for disable multiple column at once
+    ajax: {
+      url: "/Workers/GetAllWorkers",
+      type: "post",
+      datatype: "json",
+    },
+    //"columnDefs": [{
+    //    "targets": [0],
+    //    "searchable": false,
+    //    "sortable": false
+    //}],
+    columns: [
+      {
+        data: "id",
+        name: "ID",
+        autoWidth: true,
+        defaultContent: "",
+        searchable: false,
+        sortable: false,
+      },
+      {
+        data: "name",
+        name: "Name",
+        autoWidth: true,
+        defaultContent: "",
+      },
+      {
+        sortable: false,
+        searchable: false,
+        autoWidth: false,
+        defaultContent: "",
+        render: (data, type, row, meta) =>
+          `<button type="button" class="btn btn-sm btn-secondary edit-worker" data-worker-id="${row.id}">
+            <i class="fas fa-pencil-alt"></i> Edit
+          </button>
+          <button type="button" class="btn btn-sm btn-danger delete-worker" data-worker-id="${row.id}" data-worker-name="${row.name}">
+            <i class="fas fa-trash"></i> Delete
+          </button>`,
+      },
+    ],
+  });
 
-    _$createButton.on("click", (e) => {
-        e.preventDefault();
-        _$idInput.val(0);
-        _$nameInput.val("");
-        _$nameInput.removeClass("is-valid");
-        _$nameInput.removeClass("is-invalid");
-        _$nameInputInvalidFeedback.html("");
-        _$modal.modal("show");
-    });
+  _$createButton.on("click", (e) => {
+    e.preventDefault();
+    _$idInput.val(0);
+    _$nameInput.val("");
+    _$nameInput.removeClass("is-valid");
+    _$nameInput.removeClass("is-invalid");
+    _$nameInputInvalidFeedback.html("");
+    _$modal.modal("show");
+  });
 
-    _$nameInput.on("blur", (e) => checkNameExist(e));
+  _$nameInput.on("blur", (e) => checkNameExist(e));
 
-    _$form.find(".save-button").on("click", async (e) => {
-        e.preventDefault();
-        const updating = _$idInput.val() > 0 ? true : false;
-        const notOk = await checkNameExist();
-        if (notOk) return;
+  _$form.find(".save-button").on("click", async (e) => {
+    e.preventDefault();
+    const updating = _$idInput.val() > 0 ? true : false;
+    const notOk = await checkNameExist();
+    if (notOk) return;
 
-        const workerDto = {
-            Id: _$idInput.val(),
-            Name: _$nameInput.val(),
-        };
-        let response;
-        try {
-            response = await postData("workers/CreateOrUpdateWorker", workerDto);
-        } catch (err) {
-            alert(err);
-            return;
-        }
-
-        if (response.id) {
-            if (!updating) {
-                alert("created");
-            } else {
-                alert("updated");
-            }
-        }
-        _$workerTable.ajax.reload();
-        _$modal.modal("hide");
-    });
-
-    async function postData(url = "", data = {}) {
-        const response = await fetch(url, {
-            method: "POST",
-            mode: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-
-        return response.json();
+    const workerDto = {
+      Id: _$idInput.val(),
+      Name: _$nameInput.val(),
+    };
+    let response;
+    try {
+      response = await postData("workers/CreateOrUpdateWorker", workerDto);
+    } catch (err) {
+      alert(err);
+      return;
     }
 
-    const checkNameExist = async () => {
-        let name = _$nameInput.val();
+    if (response.id) {
+      if (!updating) {
+        alert("created");
+      } else {
+        alert("updated");
+      }
+    }
+    _$workerTable.ajax.reload();
+    _$modal.modal("hide");
+  });
 
-        if (!name) {
-            _$nameInput.addClass("is-invalid");
-            _$nameInputInvalidFeedback.html(`Name cannot be empty`);
-            return true;
-        }
-
-        let isExistFetch = await fetch(`/Workers/IsWorkersNameTaken?name=${name}`);
-        let isExist = await isExistFetch.json();
-
-        if (isExist) {
-            _$nameInput.removeClass("is-valid");
-            _$nameInput.addClass("is-invalid");
-            _$nameInputInvalidFeedback.html(`${name} is taken`);
-            return true;
-        } else {
-            _$nameInput.removeClass("is-invalid");
-            _$nameInput.addClass("is-valid");
-            _$nameInputInvalidFeedback.html("");
-            return false;
-        }
-    };
-
-    $(document).on("click", ".edit-worker", async function (e) {
-        e.preventDefault();
-        const dataId = $(this).attr("data-worker-id");
-        try {
-            const fetchWorkerRecord = await fetch(
-                `/workers/GetOneWorkerDetails?workerId=${dataId}`
-            );
-            const workerRecord = await fetchWorkerRecord.json();
-
-            _$nameInput.removeClass("is-valid");
-            _$nameInput.removeClass("is-invalid");
-            _$nameInputInvalidFeedback.html("");
-            _$idInput.val(workerRecord.id);
-            _$nameInput.val(workerRecord.name);
-            _$modal.modal("show");
-        } catch (err) {
-            alert(err);
-        }
+  async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
 
-    $(document).on("click", ".delete-worker", async function (e) {
-        const dataId = $(this).attr("data-worker-id");
-        const dataName = $(this).attr("data-worker-name");
-        e.preventDefault();
+    return response.json();
+  }
 
-        const isConfirmed = confirm(
-            `Are you sure, you want to delete worker ${dataName}`
-        );
-        if (!isConfirmed) {
-            return;
-        }
+  const checkNameExist = async () => {
+    let name = _$nameInput.val();
 
-        try {
-            await fetch(`/workers/DeleteWorker?workerId=${dataId}`);
-            alert(`${dataName} is deleted`);
-        } catch (err) {
-            alert(err);
-            return;
-        }
+    if (!name) {
+      _$nameInput.addClass("is-invalid");
+      _$nameInputInvalidFeedback.html(`Name cannot be empty`);
+      return true;
+    }
 
-        _$workerTable.ajax.reload();
-    });
+    let isExistFetch = await fetch(`/Workers/IsWorkersNameTaken?name=${name}`);
+    let isExist = await isExistFetch.json();
+
+    if (isExist) {
+      _$nameInput.removeClass("is-valid");
+      _$nameInput.addClass("is-invalid");
+      _$nameInputInvalidFeedback.html(`${name} is taken`);
+      return true;
+    } else {
+      _$nameInput.removeClass("is-invalid");
+      _$nameInput.addClass("is-valid");
+      _$nameInputInvalidFeedback.html("");
+      return false;
+    }
+  };
+
+  $(document).on("click", ".edit-worker", async function (e) {
+    e.preventDefault();
+    const dataId = $(this).attr("data-worker-id");
+    try {
+      const fetchWorkerRecord = await fetch(
+        `/workers/GetOneWorkerDetails?workerId=${dataId}`
+      );
+      const workerRecord = await fetchWorkerRecord.json();
+
+      _$nameInput.removeClass("is-valid");
+      _$nameInput.removeClass("is-invalid");
+      _$nameInputInvalidFeedback.html("");
+      _$idInput.val(workerRecord.id);
+      _$nameInput.val(workerRecord.name);
+      _$modal.modal("show");
+    } catch (err) {
+      alert(err);
+    }
+  });
+
+  $(document).on("click", ".delete-worker", async function (e) {
+    const dataId = $(this).attr("data-worker-id");
+    const dataName = $(this).attr("data-worker-name");
+    e.preventDefault();
+
+    const isConfirmed = confirm(
+      `Are you sure, you want to delete worker ${dataName}`
+    );
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      await fetch(`/workers/DeleteWorker?workerId=${dataId}`);
+      alert(`${dataName} is deleted`);
+    } catch (err) {
+      alert(err);
+      return;
+    }
+
+    _$workerTable.ajax.reload();
+  });
 </script>
 }
